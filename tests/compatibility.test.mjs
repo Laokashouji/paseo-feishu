@@ -5,6 +5,10 @@ import { assertPluginCompatibility } from "@getpaseo/protocol/plugin-requirement
 
 const manifest = JSON.parse(await readFile(new URL("../paseo-plugin.json", import.meta.url), "utf8"));
 
+test("manifest 保留 feishu-bridge 插件 ID", () => {
+  assert.equal(manifest.id, "feishu-bridge");
+});
+
 for (const runtime of ["daemon", "app"]) {
   test(`${runtime} 要求 Paseo 0.16.0 及以上，并允许对应预发布版与后续版本加载`, () => {
     for (const version of ["0.16.0-beta.1", "0.16.0", "0.16.1", "0.17.0", "1.0.0"]) {

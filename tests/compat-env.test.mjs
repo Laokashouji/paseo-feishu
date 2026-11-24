@@ -21,17 +21,18 @@ import {
 test("状态目录跨平台解析（显式变量 / XDG / APPDATA / 默认配置目录）", () => {
   assert.equal(resolveStateDir({ PASEO_FEISHU_DIR: "/custom/feishu" }, "darwin"), resolve("/custom/feishu"));
   assert.equal(resolveStateDir({ FEISHU_PLUGIN_DIR: "/alt/feishu" }, "linux"), resolve("/alt/feishu"));
+  assert.equal(resolveStateDir({ FEISHU_BRIDGE_DIR: "/legacy/feishu" }, "linux"), resolve("/legacy/feishu"));
   assert.equal(
     resolveStateDir({ XDG_CONFIG_HOME: "/xdg", HOME: "/users/alice" }, "linux"),
-    resolve("/xdg", "paseo-feishu"),
+    resolve("/xdg", "feishu-bridge"),
   );
   assert.equal(
     resolveStateDir({ HOME: "/users/alice" }, "darwin"),
-    resolve("/users/alice", ".config", "paseo-feishu"),
+    resolve("/users/alice", ".config", "feishu-bridge"),
   );
   assert.equal(
     resolveStateDir({ APPDATA: "/win/roaming", USERPROFILE: "/win/user" }, "win32"),
-    resolve("/win/roaming", "paseo-feishu"),
+    resolve("/win/roaming", "feishu-bridge"),
   );
 });
 

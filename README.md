@@ -45,10 +45,10 @@ paseo plugin install git:Laokashouji/paseo-feishu
 paseo plugin install https://github.com/Laokashouji/paseo-feishu.git
 ```
 
-安装完成后，如需升级到最新版本：
+安装完成后，插件默认 ID 为 `feishu-bridge`。如需升级到最新版本：
 
 ```bash
-paseo plugin update feishu
+paseo plugin update feishu-bridge
 ```
 
 ## 环境变量（可选）
@@ -57,7 +57,7 @@ paseo plugin update feishu
 | --- | --- |
 | `FEISHU_LARK_CLI_BIN`（或 `LARK_CLI_BIN`） | 显式指定 `lark-cli` 可执行文件路径。未设置时会自动探测 `PATH` 及常见安装位置（Homebrew、pnpm、npm、nvm、fnm、Volta、Bun、mise、asdf、Scoop、Go 等）。 |
 | `FEISHU_BRAND`（或 `LARK_BRAND`） | 显式指定品牌：`feishu`（默认，兜底链接用 `applink.feishu.cn`）或 `lark`（兜底链接用 `applink.larksuite.com`）。未设置时会自动读取 `lark-cli` 配置或根据返回链接推断。 |
-| `PASEO_FEISHU_DIR`（或 `FEISHU_PLUGIN_DIR`） | 自定义插件状态目录（保存 `settings.json`、`ui-state.json`、`recent-attach.json`）。默认使用 `$XDG_CONFIG_HOME/paseo-feishu`、`~/.config/paseo-feishu`（POSIX）或 `%APPDATA%/paseo-feishu`（Windows）。 |
+| `PASEO_FEISHU_DIR`（或 `FEISHU_PLUGIN_DIR` / `FEISHU_BRIDGE_DIR`） | 自定义插件状态目录（保存 `settings.json`、`ui-state.json`、`recent-attach.json`）。默认使用 `$XDG_CONFIG_HOME/feishu-bridge`、`~/.config/feishu-bridge`（POSIX）或 `%APPDATA%/feishu-bridge`（Windows）。 |
 
 ## 本地开发与验证
 
@@ -71,7 +71,7 @@ pnpm test
 
 ```bash
 paseo plugin install /absolute/path/to/paseo-feishu
-paseo plugin reload feishu
+paseo plugin reload feishu-bridge
 ```
 
 ## License

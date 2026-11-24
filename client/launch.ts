@@ -85,12 +85,12 @@ export async function createConversation(
   }
 
   const metadata = input.sourceId
-    ? { "feishu.kind": input.kind, "feishu.sourceId": input.sourceId }
+    ? { "feishu-bridge.kind": input.kind, "feishu-bridge.sourceId": input.sourceId }
     : undefined;
   const agent = await workspace.agents.create({
     config: input.config,
     title: input.title,
-    labels: { source: "feishu", feishuKind: input.kind },
+    labels: { source: "feishu-bridge", feishuKind: input.kind },
     ...(metadata ? { metadata } : {}),
   });
 

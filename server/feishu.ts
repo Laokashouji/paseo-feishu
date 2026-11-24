@@ -44,18 +44,18 @@ export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
   platform: NodeJS.Platform = process.platform,
 ): string {
-  const explicit = (env.PASEO_FEISHU_DIR || env.FEISHU_PLUGIN_DIR)?.trim();
+  const explicit = (env.PASEO_FEISHU_DIR || env.FEISHU_PLUGIN_DIR || env.FEISHU_BRIDGE_DIR)?.trim();
   if (explicit) return resolve(explicit);
   if (platform === "win32") {
     const appData = env.APPDATA?.trim();
-    if (appData) return resolve(appData, "paseo-feishu");
+    if (appData) return resolve(appData, "feishu-bridge");
   } else {
     const xdg = env.XDG_CONFIG_HOME?.trim();
-    if (xdg) return resolve(xdg, "paseo-feishu");
+    if (xdg) return resolve(xdg, "feishu-bridge");
   }
   const home = userHome(env);
-  if (home) return resolve(home, ".config", "paseo-feishu");
-  return resolve(tmpdir(), "paseo-feishu");
+  if (home) return resolve(home, ".config", "feishu-bridge");
+  return resolve(tmpdir(), "feishu-bridge");
 }
 
 function compareVersionDesc(a: string, b: string): number {

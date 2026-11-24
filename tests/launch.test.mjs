@@ -59,7 +59,7 @@ test("固定工作区按 ID 复用，发送编辑后的消息，不通过 cwd �
   );
   assert.equal(calls[0][1], "chosen");
   assert.equal(calls[0][2].config.modeId, "read-only");
-  assert.deepEqual(calls[0][2].labels, { source: "feishu", feishuKind: "chat" });
+  assert.deepEqual(calls[0][2].labels, { source: "feishu-bridge", feishuKind: "chat" });
   assert.deepEqual(calls[1], ["send", input.text]);
 });
 
@@ -134,8 +134,8 @@ test("草稿模式只创建空对话并预填到原生输入框，不调用 agen
     ["open", "agent"],
   );
   assert.deepEqual(calls[1][2].metadata, {
-    "feishu.kind": "chat",
-    "feishu.sourceId": "oc_123",
+    "feishu-bridge.kind": "chat",
+    "feishu-bridge.sourceId": "oc_123",
   });
   assert.deepEqual(events, [
     ["openAgent", "agent-1"],

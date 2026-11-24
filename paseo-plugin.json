@@ -1,5 +1,5 @@
 {
-  "id": "feishu",
+  "id": "feishu-bridge",
   "name": "飞书",
   "description": "在 Paseo 中查看飞书 / Lark 会话、待办与日程，支持会话附件附加与一键新建对话。",
   "requirements": { "paseo": ">=0.16.0" }

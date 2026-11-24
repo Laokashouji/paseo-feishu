@@ -1,6 +1,6 @@
 {
   "name": "paseo-feishu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "description": "Paseo plugin for Feishu / Lark: browse chats, tasks, and calendar agenda, attach chats to composer, and start conversations with preview.",
   "repository": {
