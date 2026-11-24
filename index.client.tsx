@@ -4,6 +4,7 @@ import { defineAttachmentSource } from "@getpaseo/plugin";
 import {
   useRpc,
   type PluginClientContext,
+  type PluginClientContribution,
   type PluginScreenProps,
   type PluginSidebarItemProps,
 } from "@getpaseo/plugin/client";
@@ -57,7 +58,7 @@ function FeishuSidebarItem({ currentScreen, openScreen, theme }: PluginSidebarIt
   );
 }
 
-export default function contribute(client: PluginClientContext) {
+const contribute: PluginClientContribution = (client: PluginClientContext) => {
   const cleanups = [
     bindComposerResolver((selector) => client.composers(selector)),
     client.addScreen({
@@ -104,6 +105,8 @@ export default function contribute(client: PluginClientContext) {
     }),
   ];
   return () => {
-    for (const cleanup of cleanups.reverse()) void cleanup();
+    for (const cleanup of [...cleanups].reverse()) void cleanup();
   };
-}
+};
+
+export default contribute;

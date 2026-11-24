@@ -2,11 +2,26 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { assertPluginCompatibility } from "@getpaseo/protocol/plugin-requirements";
+import contributeServer from "../index.server.ts";
 
 const manifest = JSON.parse(await readFile(new URL("../paseo-plugin.json", import.meta.url), "utf8"));
 
 test("manifest 保留 feishu-bridge 插件 ID", () => {
   assert.equal(manifest.id, "feishu-bridge");
+});
+
+test("服务端入口注册全部 RPC 并返回可执行清理函数", () => {
+  const methods = [];
+  const cleanup = contributeServer({
+    handle(contract, handler) {
+      assert.equal(typeof contract?.name, "string");
+      assert.equal(typeof handler, "function");
+      methods.push(contract.name);
+    },
+  });
+  assert.equal(typeof cleanup, "function");
+  assert.equal(methods.length, 11);
+  assert.doesNotThrow(() => cleanup());
 });
 
 for (const runtime of ["daemon", "app"]) {

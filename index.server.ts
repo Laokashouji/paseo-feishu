@@ -1,7 +1,7 @@
 /**
  * paseo-feishu 服务端入口：基于官方开源 lark-cli，将飞书 / Lark 会话、待办与日程接入 Paseo。
  */
-import type { PluginServerContext } from "@getpaseo/plugin/server";
+import type { PluginServerContext, PluginServerContribution } from "@getpaseo/plugin/server";
 import {
   handleBuildPrompt,
   handleGetAgenda,
@@ -14,7 +14,8 @@ import {
   handleSearchFeishu,
   handleSetSettings,
   handleSetUiState,
-} from "./server/feishu";
+  resetAttachmentCache,
+} from "./server/feishu.ts";
 import {
   buildPrompt,
   getAgenda,
@@ -27,9 +28,9 @@ import {
   searchFeishu,
   setSettings,
   setUiState,
-} from "./shared/feishu";
+} from "./shared/feishu.ts";
 
-export default function contribute(server: PluginServerContext) {
+const contribute: PluginServerContribution = (server: PluginServerContext) => {
   server.handle(listChats, handleListChats);
   server.handle(searchChats, handleSearchChats);
   server.handle(listTasks, handleListTasks);
@@ -41,4 +42,10 @@ export default function contribute(server: PluginServerContext) {
   server.handle(setUiState, handleSetUiState);
   server.handle(getSettings, handleGetSettings);
   server.handle(setSettings, handleSetSettings);
-}
+
+  return () => {
+    resetAttachmentCache();
+  };
+};
+
+export default contribute;
