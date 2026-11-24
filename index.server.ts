@@ -30,7 +30,10 @@ import {
   setUiState,
 } from "./shared/feishu.ts";
 
-const contribute: PluginServerContribution = (server: PluginServerContext) => {
+// Paseo 插件打包器在模块顶部提前拷贝导出，入口必须保留函数声明以利用函数提升。
+export default function contribute(
+  server: PluginServerContext,
+): ReturnType<PluginServerContribution> {
   server.handle(listChats, handleListChats);
   server.handle(searchChats, handleSearchChats);
   server.handle(listTasks, handleListTasks);
@@ -46,6 +49,4 @@ const contribute: PluginServerContribution = (server: PluginServerContext) => {
   return () => {
     resetAttachmentCache();
   };
-};
-
-export default contribute;
+}

@@ -58,7 +58,10 @@ function FeishuSidebarItem({ currentScreen, openScreen, theme }: PluginSidebarIt
   );
 }
 
-const contribute: PluginClientContribution = (client: PluginClientContext) => {
+// Paseo 插件打包器在模块顶部提前拷贝导出，入口必须保留函数声明以利用函数提升。
+export default function contribute(
+  client: PluginClientContext,
+): ReturnType<PluginClientContribution> {
   const cleanups = [
     bindComposerResolver((selector) => client.composers(selector)),
     client.addScreen({
@@ -107,6 +110,4 @@ const contribute: PluginClientContribution = (client: PluginClientContext) => {
   return () => {
     for (const cleanup of [...cleanups].reverse()) void cleanup();
   };
-};
-
-export default contribute;
+}
